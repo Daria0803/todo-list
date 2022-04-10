@@ -8,83 +8,85 @@ class App extends Component {
 
   constructor(props) {
       super(props);
-
-      if (typeof localStorage['tasks'] !== 'undefined' && localStorage['tasks'] !== null){
+      if (typeof localStorage['Tasks'] !== 'undefined' && localStorage['Tasks'] !== null){
 
         this.state = {
-          list: JSON.parse(localStorage.getItem('tasks')),
+          obj: JSON.parse(localStorage.getItem('Tasks')),
           inputValue: ''
         }
 
       }else {
         this.state = {
-          list: [],
+          obj: {},
           inputValue: ''
         };
       }
-      //console.log(this.state.list);
 
       this.addTask = this.addTask.bind(this);
       this.deleteTask = this.deleteTask.bind(this);
+      this.changeState = this.changeState.bind(this);
+      this.handleChange = this.handleChange.bind(this);
   }
-
 
 
   addTask = async (e) => {
 
-
     e.preventDefault();
     var newTask = e.target.elements.keyword.value;
-    var todos = this.state.list;
-    //console.log(newTask);
-    todos.push(newTask);
-    //console.log(this.state.list);
-    localStorage.setItem('tasks', JSON.stringify(todos));
-
+    var todos = this.state.obj;
+    todos[newTask] = false;
+    localStorage.setItem('Tasks', JSON.stringify(todos));
 
     this.setState({
       inputValue: newTask,
-      list: todos
+      obj: todos
     });
   }
 
   deleteTask(todo){
-    var todos = this.state.list;
-    //console.log(this.state.list);
-    //console.log(todo);
-    todos.splice(todos.indexOf(todo), 1);
-    localStorage.setItem('tasks', JSON.stringify(todos));
+    var todos = this.state.obj;
+    //todos.splice(todos.indexOf(todo), 1);
+    delete todos[todo];
+    localStorage.setItem('Tasks', JSON.stringify(todos));
+
+
     this.setState({
-      list: todos
+      obj: todos
     });
-    //console.log(this.state.list);
+  }
+
+  changeState(todo) {
+    var todos = this.state.obj;
+    todos[todo] = !todos[todo];
+    localStorage.setItem('Tasks', JSON.stringify(todos));
+    this.setState({
+      obj: todos
+    });
+
+    console.log(todos)
+  }
+
+  handleChange(event) {
+      console.log(event.target.checked);
   }
 
   render(){
-    //console.log(JSON.parse(localStorage.getItem('todos')));
-
-
     var listmap = [];
-    if (this.state.list){
-
-      listmap = this.state.list.map(task => (
-        <TaskItem key={task} todo={task} deleteTask={this.deleteTask} />
-        //<li key={task}>
-        //        {task}
-        //        <button onClick={this.deleteTask}> del </button>
-        //</li>
+    var object = this.state.obj;
+    if (this.state.obj){
+      var keys = Object.keys(this.state.obj);
+      listmap = keys.map(task => (
+        <TaskItem key={task} isdone={object[task]} todo={task} deleteTask={this.deleteTask} changeState={this.changeState}/>
       ));
     }
 
     return (
-
-      <div className="App">
-
-        <h1>Todo</h1>
-
-        <Form addTask={this.addTask} />
-        <div>{listmap}</div>
-
+      <div className="wrapper">
+        <div className="flex-container">
+          <h1> To do </h1>
+          <Form addTask={this.addTask} />
+          <div className="tasklist">{listmap}</div>
+        </div>
       </div>
     );
   }

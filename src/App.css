@@ -1,38 +1,89 @@
-.App {
-  text-align: center;
+.wrapper {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(45,176,224,1);
+  background: -moz-linear-gradient(45deg, rgba(45,176,224,1) 0%, rgba(96,40,168,1) 100%);
+  background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(45,176,224,1)),
+  color-stop(100%, rgba(96,40,168,1)));
+  background: -webkit-linear-gradient(45deg, rgba(45,176,224,1) 0%, rgba(96,40,168,1) 100%);
+  background: -o-linear-gradient(45deg, rgba(45,176,224,1) 0%, rgba(96,40,168,1) 100%);
+  background: -ms-linear-gradient(45deg, rgba(45,176,224,1) 0%, rgba(96,40,168,1) 100%);
+  background: linear-gradient(45deg, rgba(45,176,224,1) 0%, rgba(96,40,168,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2db0e0', endColorstr='#6028a8', GradientType=1 );
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+input[type="text"] {
+  background-color: white;
+  border: 10;
+  border-bottom: solid 2px #113a65;
+  width: 70%;
+  padding-bottom: 4px;
+  color: #103a66;
+  font-weight: lighter;
+  margin-bottom: 30px;
+  margin-right: 20px;
+  font-size: 20px;
+  outline: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+input::-webkit-input-placeholder {
+  color: #103a65;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+input::-moz-placeholder {
+  color: #103a65;
+}
+
+
+button {
+  border: 2px solid #103a65;
+  border-bottom: 4px solid #103a65;
+  padding: 8px 20px;
+  margin: 0 2px;
+  border-radius: 2px;
+  cursor: pointer;
+  background-color: #235d9c;
+  color: #fff;
+  outline: none!important;
+}
+
+.flex-container {
+
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+
+  margin: auto;
+  min-height: 100vh;
+  max-height: 100vh;
   color: white;
+  font-size: calc(10px + 2vmin);
 }
 
-.App-link {
-  color: #61dafb;
+.tasklist {
+  align-self: center;
+  flex-wrap: nowrap;
+  margin: 0.475rem;
+  flex-grow: 1;
+
+
+  max-height: 80vh;
+  min-width: 80vh;
+  overflow: scroll;
+  background-color: white;
+  color: black;
+
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.task-container {
+  display: flex;
+  flex-direction: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  flex-grow: 3;
 }
